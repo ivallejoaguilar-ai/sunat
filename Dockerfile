@@ -33,11 +33,14 @@ WORKDIR /app
 # Copy composer files
 COPY composer.json composer.lock ./
 
-# Install dependencies (production only, ignore platform requirements)
-RUN composer install --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs
+# Install dependencies (production only, ignore platform requirements, no scripts)
+RUN composer install --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs --no-scripts
 
 # Copy application files
 COPY . .
+
+# Run composer dump-autoload to generate optimized files and run scripts
+RUN composer dump-autoload --optimize
 
 # Set permissions
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
