@@ -30,16 +30,13 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /app
 
-# Copy composer files
-COPY composer.json composer.lock ./
+# Copy application files (including artisan)
+COPY . .
 
 # Install dependencies (production only, ignore platform requirements, no scripts)
 RUN composer install --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs --no-scripts
 
-# Copy application files
-COPY . .
-
-# Run composer dump-autoload to generate optimized files and run scripts
+# Run composer dump-autoload to generate optimized files
 RUN composer dump-autoload --optimize
 
 # Set permissions
@@ -52,4 +49,4 @@ EXPOSE 8080
 CMD php artisan migrate --force && \
     php artisan config:cache && \
     php artisan route:cache && \
-    php artisan serve --host=0.0.0.0 --port=8080
+    php artisan serve --host=0.0.0.0 --port=$PORT8080
