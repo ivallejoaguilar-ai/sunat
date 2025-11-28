@@ -192,4 +192,3 @@ Para consultas técnicas o colaboraciones:
 **⚡ Desarrollado con Laravel 12 y Greenter 5.1 para la comunidad peruana**
 
 *"Facilitando la facturación electrónica en Perú - Un documento a la vez"*
-
