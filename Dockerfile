@@ -50,4 +50,4 @@ COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 8080
 
 # Start command
-CMD ["./start.sh"]
+CMD ["sh", "start.sh"]
