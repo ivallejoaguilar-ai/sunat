@@ -10,7 +10,8 @@ RUN apk add --no-cache \
     unzip \
     oniguruma-dev \
     libzip-dev \
-    icu-dev
+    icu-dev \
+    nginx
 
 # Install PHP extensions
 RUN docker-php-ext-install \
@@ -41,6 +42,9 @@ RUN composer dump-autoload --optimize
 
 # Set permissions
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
+
+# Configure Nginx
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Expose port
 EXPOSE 8080
